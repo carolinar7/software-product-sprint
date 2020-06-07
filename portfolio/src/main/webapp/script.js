@@ -15,6 +15,7 @@
 /**
  * Adds a random greeting to the page.
  */
+ console.log("hey")
 function addRandomGreeting() {
   const greetings = ['Hala Madrid'];
   // Pick a random greeting.
