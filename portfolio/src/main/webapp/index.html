@@ -1,18 +1,111 @@
 <!DOCTYPE html>
+
 <html>
-  <head>
+  <head lang="en">
     <meta charset="UTF-8">
-    <title>My Portfolio</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Frederick Santiago</title>
     <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Work+Sans&display=swap" rel="stylesheet">
     <script src="script.js"></script>
   </head>
   <body>
-    <div id="content">
-      <h1>My Portfolio</h1>
-      <p>This is my portfolio.</p>
-      <p>Click here to get a random message:</p>
-      <button onclick="addRandomGreeting()">Hello</button>
-      <div id="greeting-container"></div>
+    <div id="screen-contain">
+      <header id="heading" role="heading">
+        <h1>Frederick Santiago</h1>
+        <h2>people.build.lead.diversity</h2>
+      </header>
+
+      <nav role="navigation">
+        <ul>
+          <li><a href="index.html" class="active">About</a></li>
+          <li><a href="pages/resume.html">Resume</a></li>
+          <li><a href="pages/involvement.html">Involvement</a></li>
+          <li><a href="pages/contact.html">Contact</a></li>
+        </ul>
+      </nav>
+
+      <main role="main">
+        <section>
+          <h2>Hey, I'm Frederick Santiago!</h2>
+          <p>
+            I am a rising computer science sophomore at the
+            University of Central Florida. I am passionate
+            about tech, diversity, and people.
+          </p>
+          <img src="images/headshot.jpg" alt="Image of Frederick Santiago">
+          <h2>Outside of school I'm big fan of:</h2>
+        </section>
+
+        <section>
+          <h3>Family</h3>
+          <p>
+            I have 5 brothers! 2 are older than me, but 
+            the others are way, way younger than me. So I 
+            spend a lot of my time playing with the little
+            ones.
+          </p>
+          <img src="images/littlesister.jpg" alt="Image of my baby sister and I" width="275">
+        </section>
+
+        <section>
+          <h3>Soccer</h3>
+          <p>
+            Oddly enough the first sports I really got into 
+            was basketball, and then football. It wasn't 
+            until I moved, and lived in Colombia for two years
+            is where I fell in love with soccer. I've played
+            soccer ever since.
+          </p> 
+          <img src="images/soccer.jpg" alt="Image of my high school soccer team" width="300" height="150">
+        </section>
+
+        <section>
+          <h3>Video Games</h3>
+          <p>
+            I don't play as much as I used to, but I stil try
+            to sauce up randoms in FIFA, and, my favorite, 
+            Rocket League.
+          </p>
+          <img src="images/rocketleague.jpg" alt="Image of Rocket League" width="300" height="200">
+        </section>
+
+        <section>
+          <h3>Reggaeton</h3>
+          <p>
+            This is what I listen to the most. I like modern 
+            reggaeton more compared to the older ones back in 
+            Daddy Yankee's early days. But, don't think I 
+            won't break it down to Gasolina.
+          </p>
+          <img src="images/reggaeton.png" alt="Image of famous reggaetoneros" width="300" height="200">
+        </section>
+      </main>
+
+      <footer role="contentinfo">
+        <ul>
+          <li>
+            <a href="tel:+5612321138">
+              <img src="images/phone.png">
+            </a>
+          </li>
+          <li>
+            <a href="https://www.linkedin.com/in/fredericksantiago/" target="_blank">
+              <img src="images/linkedin.png">
+            </a>
+          </li>
+          <li>
+            <a href="https://github.com/carolinar7/" target="_blank">
+              <img src="images/github.png">
+            </a>
+          </li>
+          <li>
+            <a href="mailto:frsantiago2001@gmail.com">
+              <img src="images/email.png">
+            </a>
+          </li>
+        </ul>
+      </footer>
     </div>
   </body>
 </html>
