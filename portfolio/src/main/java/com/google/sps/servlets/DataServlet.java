@@ -19,14 +19,29 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.List; // import just the List interface
+import java.util.ArrayList; // import just the ArrayList class
 
 /** Servlet that returns some example content. TODO: modify this file to handle comments data */
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
 
+    List<String> quotes;
+
+  @Override
+  public void init() {
+    quotes = new ArrayList<>();
+    quotes.add("Live as if you were to die tomorrow. Learn as if you were to live forever. - Mahatma Gandhi");
+    quotes.add("That which does not kill us makes us stronger. - Friedrich Nietzsche");
+    quotes.add("Be who you are and say what you feel, because those who mind don’t matter and those who matter don’t mind. - Bernard M. Baruch");
+    quotes.add("We must not allow other people’s limited perceptions to define us. - Virginia Satir");
+  }
+
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    String quote = quotes.get((int) (Math.random()*quotes.size()));
+
     response.setContentType("text/html;");
-    response.getWriter().println("<h1>Hello Freddy!</h1>");
+    response.getWriter().println(quote);
   }
 }
