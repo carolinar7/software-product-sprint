@@ -31,17 +31,36 @@ public class DataServlet extends HttpServlet {
   @Override
   public void init() {
     quotes = new ArrayList<>();
-    quotes.add("Live as if you were to die tomorrow. Learn as if you were to live forever. - Mahatma Gandhi");
-    quotes.add("That which does not kill us makes us stronger. - Friedrich Nietzsche");
-    quotes.add("Be who you are and say what you feel, because those who mind don’t matter and those who matter don’t mind. - Bernard M. Baruch");
-    quotes.add("We must not allow other people’s limited perceptions to define us. - Virginia Satir");
+    quotes.add("Live as if you were to die tomorrow. Learn as if you were to live forever. - Mahatma Gandhi ");
+    quotes.add("That which does not kill us makes us stronger. - Friedrich Nietzsche ");
+    quotes.add("Be who you are and say what you feel, because those who mind don’t matter and those who matter don’t mind. - Bernard M. Baruch ");
+    quotes.add("We must not allow other people’s limited perceptions to define us. - Virginia Satir ");
+  }
+
+  private String convertToJson(DataServlet dataServlet) {
+    String json = "{";
+    json += "\"quote1\": ";
+    json += "\"" + dataServlet.quotes.get(0) + "\"";
+    json += ", ";
+    json += "\"quote2\": ";
+    json += "\"" + dataServlet.quotes.get(1) + "\"";
+    json += ", ";
+    json += "\"quote3\": ";
+    json += "\"" + dataServlet.quotes.get(2) + "\"";;
+    json += ", ";
+    json += "\"quote4\": ";
+    json += "\"" + dataServlet.quotes.get(3) + "\"";;
+    json += "}";
+    return json;
   }
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    String quote = quotes.get((int) (Math.random()*quotes.size()));
+    DataServlet dataServlet = new DataServlet();
+    dataServlet.init();
+    String json = convertToJson(dataServlet); 
 
-    response.setContentType("text/html;");
-    response.getWriter().println(quote);
+    response.setContentType("application/json;");
+    response.getWriter().println(json);
   }
 }
