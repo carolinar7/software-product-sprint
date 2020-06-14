@@ -12,17 +12,25 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-function fetchQuote () {
-  let getQuote = fetch("/data");
-  getQuote.then(turnToText);
+function getServerQuotes() {
+  console.log("Enter function");
+  fetch("/data").then(response => response.json()).then((stats) => { 
+    console.log("fetch");
+    let statsListElement = document.getElementById('quote-container');
+    statsListElement.innerHTML = '';
+    statsListElement.appendChild(
+        createListElement('Quote 1: ' + stats.quote1));
+    statsListElement.appendChild(
+        createListElement('Quote 2: ' + stats.quote2));
+    statsListElement.appendChild(
+        createListElement('Quote 3: ' + stats.quote3));
+    statsListElement.appendChild(
+        createListElement('Quote 4: ' + stats.quote4));
+  });
 }
 
-function turnToText (theQuote) {
-  let quote = theQuote.text();
-  quote.then(renderQuote);
-}
-
-function renderQuote (textQuote) {
-  let a = document.getElementById('quote-container');
-  a.innerText = textQuote;
+function createListElement(text) {
+  const liElement = document.createElement('li');
+  liElement.innerText = text;
+  return liElement;
 }
