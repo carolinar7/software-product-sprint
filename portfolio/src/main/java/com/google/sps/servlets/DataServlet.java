@@ -15,52 +15,41 @@
 package com.google.sps.servlets;
 
 import java.io.IOException;
+import com.google.gson.Gson;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.List; // import just the List interface
-import java.util.ArrayList; // import just the ArrayList class
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Map;
+import java.util.HashMap;
 
-/** Servlet that returns some example content. TODO: modify this file to handle comments data */
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
 
-    List<String> quotes;
-
-  @Override
-  public void init() {
-    quotes = new ArrayList<>();
-    quotes.add("Live as if you were to die tomorrow. Learn as if you were to live forever. - Mahatma Gandhi ");
-    quotes.add("That which does not kill us makes us stronger. - Friedrich Nietzsche ");
-    quotes.add("Be who you are and say what you feel, because those who mind don’t matter and those who matter don’t mind. - Bernard M. Baruch ");
-    quotes.add("We must not allow other people’s limited perceptions to define us. - Virginia Satir ");
-  }
-
-  private String convertToJson(DataServlet dataServlet) {
-    String json = "{";
-    json += "\"quote1\": ";
-    json += "\"" + dataServlet.quotes.get(0) + "\"";
-    json += ", ";
-    json += "\"quote2\": ";
-    json += "\"" + dataServlet.quotes.get(1) + "\"";
-    json += ", ";
-    json += "\"quote3\": ";
-    json += "\"" + dataServlet.quotes.get(2) + "\"";;
-    json += ", ";
-    json += "\"quote4\": ";
-    json += "\"" + dataServlet.quotes.get(3) + "\"";;
-    json += "}";
-    return json;
-  }
+  private List<Map<String,String>> comments = new ArrayList<Map<String,String>>();
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    DataServlet dataServlet = new DataServlet();
-    dataServlet.init();
-    String json = convertToJson(dataServlet); 
-
-    response.setContentType("application/json;");
+    response.setContentType("application/json");
+    String json = new Gson().toJson(comments);
     response.getWriter().println(json);
+  }
+
+  @Override
+  public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    Map<String, String> temp = new HashMap<String, String>();
+    String firstName = request.getParameter("fname");
+    String lastName = request.getParameter("lname");
+    String email = request.getParameter("email");
+    String message = request.getParameter("textarea");
+    temp.put("fname",firstName);
+    temp.put("lname",lastName);
+    temp.put("email",email);
+    temp.put("textarea",message);
+    comments.add(temp);
+
+    response.sendRedirect("/pages/contact.html");
   }
 }

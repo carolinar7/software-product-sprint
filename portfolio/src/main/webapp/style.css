@@ -70,3 +70,18 @@ li a {
 #quote-container {
   display: block;
 }
+
+#form {
+  text-align: left;
+}
+
+#comments {
+  text-align: left;
+}
+
+#comments li {
+  border: 1px;
+  border-style: solid;
+  padding: 3px;
+  margin: 10px;
+}

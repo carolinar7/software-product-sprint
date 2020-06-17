@@ -13,20 +13,23 @@
 // limitations under the License.
 
 function getServerQuotes() {
-  console.log("Enter function");
-  fetch("/data").then(response => response.json()).then((stats) => { 
-    console.log("fetch");
-    let statsListElement = document.getElementById('quote-container');
-    statsListElement.innerHTML = '';
-    statsListElement.appendChild(
-        createListElement('Quote 1: ' + stats.quote1));
-    statsListElement.appendChild(
-        createListElement('Quote 2: ' + stats.quote2));
-    statsListElement.appendChild(
-        createListElement('Quote 3: ' + stats.quote3));
-    statsListElement.appendChild(
-        createListElement('Quote 4: ' + stats.quote4));
+  console.log("Has entered the getServerQuotes function");
+  fetch("/data").then(response => response.json()).then((comments) => {
+    let info = document.getElementById("comments");
+    info.innerHTML = '';
+    comments.forEach(element => {
+      info.appendChild( createListElement(
+        'Name: ' + element.fname
+        + " " + element.lname
+        + " | Email: " + element.email
+        + " | Message: " + element.textarea 
+      ));
+    });
   });
+}
+
+function creatBreak(info) {
+  return info.innerHTML = '<br>';
 }
 
 function createListElement(text) {
