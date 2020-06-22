@@ -28,10 +28,6 @@ function getServerQuotes() {
   });
 }
 
-function creatBreak(info) {
-  return info.innerHTML = '<br>';
-}
-
 function createListElement(text) {
   const liElement = document.createElement('li');
   liElement.innerText = text;
