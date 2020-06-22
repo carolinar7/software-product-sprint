@@ -13,13 +13,13 @@
 // limitations under the License.
 
 function getServerQuotes() {
-  console.log("Has entered the getServerQuotes function");
+  console.log("Getting quotes from server");
   fetch("/data").then(response => response.json()).then((comments) => {
     let info = document.getElementById("comments");
     info.innerHTML = '';
     comments.forEach(element => {
-      info.appendChild( createListElement(
-        'Name: ' + element.fname
+      info.appendChild(createListElement(
+        "Name: " + element.fname
         + " " + element.lname
         + " | Email: " + element.email
         + " | Message: " + element.textarea 
