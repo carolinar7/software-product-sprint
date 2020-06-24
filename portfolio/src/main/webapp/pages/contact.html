@@ -9,7 +9,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Work+Sans&display=swap" rel="stylesheet">
     <script src="../script.js"></script>
   </head>
-  <body>
+  <body onload="getServerQuotes()">
     <div id="screen-contain">
       <header id="heading" role="heading">
         <h1>Frederick Santiago</h1>
@@ -29,34 +29,31 @@
         <section>
           <h2>Have any questions?</h2>
         </section>
-
-        <!-- Add: action="/action_page.php" -->
-        <form>
+ 
+        <form id="form" action="/data" method="POST">
           <fieldset>
             <legend>Name</legend>
             <div>
-              <input type="text" id="fname" name="fname"><br>
+              <input type="text" id="fname" name="fname" required><br>
               <label for="fname">First name</label>
             </div>
             <div>
-              <input type="text" id="lname" name="lname"><br>
+              <input type="text" id="lname" name="lname" required><br>
               <label for="lname">Last name</label>
             </div>
           </fieldset>
           <div>
             <label for="email">Email Address</label><br>
-            <input type="email" id="email" name="email"><br>
-          </div>
-          <div>
-            <label for="subject">Subject</label><br>
-            <input type="text" id="subject" name="subject"><br>
+            <input type="email" id="email" name="email" required><br>
           </div>
           <div>
             <label for="textarea">Message</label><br>
-            <textarea id="textarea" name="textarea" rows="4" cols="50"></textarea>
+            <textarea id="textarea" name="textarea" rows="4" cols="50" required></textarea>
           </div>
           <input type="submit" value="Submit">
         </form>
+
+        <ul id="comments"></ul>
       </main>
 
       <footer role="contentinfo">

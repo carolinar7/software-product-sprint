@@ -15,18 +15,69 @@
 package com.google.sps.servlets;
 
 import java.io.IOException;
+import com.google.gson.Gson;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import com.google.appengine.api.datastore.DatastoreService;
+import com.google.appengine.api.datastore.DatastoreServiceFactory;
+import com.google.appengine.api.datastore.Entity;
+import com.google.appengine.api.datastore.PreparedQuery;
+import com.google.appengine.api.datastore.Query;
+import com.google.appengine.api.datastore.Query.SortDirection;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Map;
+import java.util.HashMap;
 
-/** Servlet that returns some example content. TODO: modify this file to handle comments data */
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
 
+  private List<Map<String,String>> comments = new ArrayList<Map<String,String>>();
+
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    response.setContentType("text/html;");
-    response.getWriter().println("<h1>Hello world!</h1>");
+    comments.clear();
+    Query query = new Query("Comments");
+
+    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+    PreparedQuery results = datastore.prepare(query);
+
+    for (Entity entity : results.asIterable()) {
+      String firstName = (String) entity.getProperty("fname");
+      String lastName = (String) entity.getProperty("lname");
+      String email = (String) entity.getProperty("email");
+      String message = (String) entity.getProperty("textarea");
+
+      Map<String, String> temp = new HashMap<String, String>();
+      temp.put("fname",firstName);
+      temp.put("lname",lastName);
+      temp.put("email",email);
+      temp.put("textarea",message);
+      comments.add(temp);
+    }
+    response.setContentType("application/json");
+    String json = new Gson().toJson(comments);
+    response.getWriter().println(json);
+  }
+
+  @Override
+  public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    String firstName = request.getParameter("fname");
+    String lastName = request.getParameter("lname");
+    String email = request.getParameter("email");
+    String message = request.getParameter("textarea");
+
+    Entity taskEntity = new Entity("Comments");
+    taskEntity.setProperty("fname",firstName);
+    taskEntity.setProperty("lname",lastName);
+    taskEntity.setProperty("email",email);
+    taskEntity.setProperty("textarea",message);
+
+    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+    datastore.put(taskEntity);
+
+    response.sendRedirect("/pages/contact.html");
   }
 }

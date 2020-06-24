@@ -14,7 +14,11 @@ ul {
   overflow: hidden;
 }
 
-li {
+nav ul li {
+  display: inline;
+}
+
+footer ul li {
   display: inline;
 }
 
@@ -61,4 +65,23 @@ li a {
 #screen-contain{
   margin: 0 auto;
   padding: 130px;
+}
+
+#quote-container {
+  display: block;
+}
+
+#form {
+  text-align: left;
+}
+
+#comments {
+  text-align: left;
+}
+
+#comments li {
+  border: 1px;
+  border-style: solid;
+  padding: 3px;
+  margin: 10px;
 }
