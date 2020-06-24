@@ -7,9 +7,10 @@
     <title>Frederick Santiago</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Work+Sans&display=swap" rel="stylesheet">
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBoiaQtfPcPpXvXvqZ3aBbeoPg7IIH31_E"></script>
     <script src="script.js"></script>
   </head>
-  <body>
+  <body onload="createMap()">
     <div id="screen-contain">
       <header id="heading" role="heading">
         <h1>Frederick Santiago</h1>
@@ -79,6 +80,16 @@
             won't break it down to Gasolina.
           </p>
           <img src="images/reggaeton.png" alt="Image of famous reggaetoneros" width="300" height="200">
+        </section>
+
+        <section>
+          <h3>Travel Bucket List</h3>
+          <p>
+            These are the locations where I want to travel to.
+            Leave a comment if one of these locations are on 
+            your bucket list too.
+          </p>
+          <div id="map"></div>
         </section>
       </main>
 

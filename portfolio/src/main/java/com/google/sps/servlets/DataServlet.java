@@ -34,11 +34,9 @@ import java.util.HashMap;
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
 
-  private List<Map<String,String>> comments = new ArrayList<Map<String,String>>();
-
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    comments.clear();
+    private List<Map<String,String>> comments = new ArrayList<Map<String,String>>();
     Query query = new Query("Comments");
 
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
@@ -50,12 +48,12 @@ public class DataServlet extends HttpServlet {
       String email = (String) entity.getProperty("email");
       String message = (String) entity.getProperty("textarea");
 
-      Map<String, String> temp = new HashMap<String, String>();
+      Map<String, String> comment = new HashMap<String, String>();
       temp.put("fname",firstName);
       temp.put("lname",lastName);
       temp.put("email",email);
       temp.put("textarea",message);
-      comments.add(temp);
+      comments.add(comment);
     }
     response.setContentType("application/json");
     String json = new Gson().toJson(comments);
