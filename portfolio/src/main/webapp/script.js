@@ -35,7 +35,40 @@ function createListElement(text) {
 }
 
 function createMap() {
-  const map = new google.maps.Map(
-      document.getElementById('map'),
-      {center: {lat: 37.422, lng: -122.084}, zoom: 16});
+  var locations = [
+    ["Beijing", 39.9042, 116.4074],
+    ["Giza", 30.0131, 31.2089],
+    ["Cape Town", -33.9249, 18.4241],
+    ["Tokyo", 35.6762, 139.6503],
+    ["Rio de Janeiro", 36.3932, 25.4615],
+    ["Santorini", 36.3932, 25.4615],
+    ["San Francisco", 37.7749, -122.4194],
+    ["Dubai", 25.2048, 55.2708],
+    ["Paris", 48.8566, 2.3522],
+    ["Rome", 41.9028, 12.4964],
+    ["London", 51.5074, -0.1278],
+    ["Bora Bora", -16.5004, -151.7415],
+    ["Madrid", 40.4168, -3.7038]
+  ];
+
+  var map = new google.maps.Map(
+      document.getElementById("map"),
+      {center: new google.maps.LatLng(0, 0), zoom: 1});
+
+  var infowindow = new google.maps.InfoWindow();
+
+  var marker, i;
+
+  for (i = 0; i < locations.length; i++) {  
+      marker = new google.maps.Marker({
+        position: new google.maps.LatLng(locations[i][1], locations[i][2]),
+        map: map
+      });
+      google.maps.event.addListener(marker, "click", (function(marker, i) {
+        return function() {
+          infowindow.setContent(locations[i][0]);
+          infowindow.open(map, marker);
+        }
+      })(marker, i));
+  }
 }
