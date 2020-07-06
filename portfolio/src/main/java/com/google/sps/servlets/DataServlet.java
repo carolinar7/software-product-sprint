@@ -36,7 +36,7 @@ public class DataServlet extends HttpServlet {
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    private List<Map<String,String>> comments = new ArrayList<Map<String,String>>();
+    List<Map<String,String>> comments = new ArrayList<Map<String,String>>();
     Query query = new Query("Comments");
 
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
@@ -49,10 +49,10 @@ public class DataServlet extends HttpServlet {
       String message = (String) entity.getProperty("textarea");
 
       Map<String, String> comment = new HashMap<String, String>();
-      temp.put("fname",firstName);
-      temp.put("lname",lastName);
-      temp.put("email",email);
-      temp.put("textarea",message);
+      comment.put("fname",firstName);
+      comment.put("lname",lastName);
+      comment.put("email",email);
+      comment.put("textarea",message);
       comments.add(comment);
     }
     response.setContentType("application/json");
