@@ -18,41 +18,41 @@ import java.util.*;
 
 public final class FindMeetingQuery {
   public Collection<TimeRange> query(Collection<Event> events, MeetingRequest request) {
-    List<TimeRange> unavailable_Time = new ArrayList<TimeRange>();
-    List<TimeRange> available_Time = new ArrayList<TimeRange>();
+    List<TimeRange> ununavailableTime = new ArrayList<TimeRange>();
+    List<TimeRange> availableTime = new ArrayList<TimeRange>();
 
     //Duration greater than a day is not valid, return empty list
     if (request.getDuration() > TimeRange.WHOLE_DAY.duration()) {
-      return available_Time;
+      return availableTime;
     }
 
     //If no required attendees or any events going on then it can be held at whatever time
     if (request.getAttendees().isEmpty() || events.isEmpty()) {
-      available_Time.add(TimeRange.WHOLE_DAY);
-      return available_Time;
+      availableTime.add(TimeRange.WHOLE_DAY);
+      return availableTime;
     }
     
     //Add unavailable times if required attendees must also be at other events
     for (Event event : events) {
       for (String attendee : event.getAttendees()) {
         if (request.getAttendees().contains(attendee)) {
-          unavailable_Time.add(event.getWhen());
+          ununavailableTime.add(event.getWhen());
           break;
         }
       }
     }
 
-    //If there are no unvailable times, return the whole day
-    if (unavailable_Time.isEmpty()) {
-      available_Time.add(TimeRange.WHOLE_DAY);
-      return available_Time;
+    //If there are no unavailable times, return the whole day
+    if (ununavailableTime.isEmpty()) {
+      availableTime.add(TimeRange.WHOLE_DAY);
+      return availableTime;
     }
 
     //Remove unavailable TimeRanges that are contained in other TimeRanges
-    for (int i = 0; i < unavailable_Time.size() - 1; i++) {
-      for (int j = i + 1; j < unavailable_Time.size(); j++) {
-        if (unavailable_Time.get(i).contains(unavailable_Time.get(j))) {
-          unavailable_Time.remove(j);
+    for (int i = 0; i < ununavailableTime.size() - 1; i++) {
+      for (int j = i + 1; j < ununavailableTime.size(); j++) {
+        if (ununavailableTime.get(i).contains(ununavailableTime.get(j))) {
+          ununavailableTime.remove(j);
         }
       }
     }
@@ -61,19 +61,19 @@ public final class FindMeetingQuery {
     int start = TimeRange.START_OF_DAY;
     int end = TimeRange.END_OF_DAY;
 
-    Collections.sort(unavailable_Time, TimeRange.ORDER_BY_START);
+    Collections.sort(ununavailableTime, TimeRange.ORDER_BY_START);
 
-    for (TimeRange time : unavailable_Time) {
+    for (TimeRange time : ununavailableTime) {
       if (time.start() - start >= request.getDuration()) {
-        available_Time.add(TimeRange.fromStartEnd(start, time.start(), false));
+        availableTime.add(TimeRange.fromStartEnd(start, time.start(), /* inclusive= */ false));
       }
       start = time.end();
     }
 
     if (end - start >= request.getDuration()) {
-      available_Time.add(TimeRange.fromStartEnd(start, end, true));
+      availableTime.add(TimeRange.fromStartEnd(start, end, true));
     }
 
-    return available_Time;
+    return availableTime;
   }
 }
